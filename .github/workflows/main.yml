@@ -1,0 +1,25 @@
+name: Build v86
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    - name: Install dependencies
+      run: sudo apt-get update && sudo apt-get install -y build-essential python3
+
+    - name: Build v86
+      run: |
+        make
+
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: v86-build
+        path: build/
